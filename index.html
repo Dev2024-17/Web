@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>En Memoria de Brayan Tarazona Espinoza</title>
+  <style>
+    :root {
+      --primary-color: #2d3748;
+      --secondary-color: #4a5568;
+      --accent-color: #f7fafc;
+      --gold-accent: #d4af37;
+      --soft-blue: #e6f3ff;
+      --warm-beige: #f5f1eb;
+      --text-primary: #2d3748;
+      --text-secondary: #4a5568;
+      --border-color: #d4af37;
+      --shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      --shadow-hover: 0 25px 50px rgba(0, 0, 0, 0.15);
+      --glow-color: rgba(212, 175, 55, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background: linear-gradient(135deg, #f7fafc 0%, #e6f3ff 50%, #f5f1eb 100%);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      opacity: 0;
+      animation: bodyFadeIn 1.5s ease-out forwards;
+    }
+
+    /* Floating particles animation */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .particle {
+      position: absolute;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.6) 0%, rgba(212, 175, 55, 0) 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: float 8s infinite ease-in-out;
+    }
+
+    .particle:nth-child(1) { width: 4px; height: 4px; left: 10%; animation-delay: 0s; }
+    .particle:nth-child(2) { width: 6px; height: 6px; left: 20%; animation-delay: 2s; }
+    .particle:nth-child(3) { width: 3px; height: 3px; left: 30%; animation-delay: 4s; }
+    .particle:nth-child(4) { width: 5px; height: 5px; left: 60%; animation-delay: 1s; }
+    .particle:nth-child(5) { width: 4px; height: 4px; left: 80%; animation-delay: 3s; }
+    .particle:nth-child(6) { width: 7px; height: 7px; left: 90%; animation-delay: 5s; }
+
+    /* Header with enhanced gradient */
+    .header {
+      position: relative;
+      height: 60vh;
+      background: linear-gradient(135deg, 
+        rgba(230, 243, 255, 0.9) 0%, 
+        rgba(245, 241, 235, 0.8) 30%,
+        rgba(212, 175, 55, 0.3) 70%,
+        rgba(230, 243, 255, 0.9) 100%),
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><radialGradient id="grad" cx="50%" cy="50%" r="50%"><stop offset="0%" style="stop-color:%23ffffff;stop-opacity:0.3" /><stop offset="100%" style="stop-color:%23d4af37;stop-opacity:0.1" /></radialGradient></defs><rect width="1200" height="600" fill="url(%23grad)"/><circle cx="200" cy="150" r="2" fill="white" opacity="0.4"/><circle cx="800" cy="100" r="3" fill="%23d4af37" opacity="0.3"/><circle cx="1000" cy="200" r="1" fill="white" opacity="0.5"/></svg>') center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.05) 100%);
+    }
+
+    .header-content {
+      text-align: center;
+      z-index: 2;
+      color: var(--text-primary);
+      animation: headerSlideDown 2s ease-out;
+    }
+
+    .memorial-title {
+      font-size: 3.5rem;
+      font-weight: 300;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 8px rgba(212, 175, 55, 0.3);
+      letter-spacing: 3px;
+      background: linear-gradient(45deg, var(--text-primary), var(--gold-accent));
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: titleGlow 3s ease-in-out infinite alternate;
+    }
+
+    .memorial-subtitle {
+      font-size: 1.3rem;
+      opacity: 0.8;
+      font-weight: 300;
+      color: var(--text-secondary);
+      animation: subtitlePulse 4s ease-in-out infinite;
+    }
+
+    /* Enhanced floating portrait */
+    .portrait-container {
+      position: relative;
+      margin-top: -90px;
+      margin-bottom: -60px;
+      text-align: center;
+      z-index: 20;
+      animation: portraitEntry 2s ease-out 0.5s both;
+    }
+
+    .portrait {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 10px solid white;
+      box-shadow: 
+        0 0 0 4px var(--gold-accent),
+        0 0 30px var(--glow-color),
+        0 20px 40px rgba(0, 0, 0, 0.2);
+      object-fit: cover;
+      transition: all 0.4s ease;
+      animation: portraitGlow 3s ease-in-out infinite alternate;
+    }
+
+    .portrait:hover {
+      transform: scale(1.08) rotate(2deg);
+      box-shadow: 
+        0 0 0 6px var(--gold-accent),
+        0 0 50px var(--glow-color),
+        0 30px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Enhanced main content */
+    .main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 80px 1rem 4rem;
+      background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.95) 0%, 
+        rgba(247, 250, 252, 0.9) 100%);
+      border-radius: 30px 30px 0 0;
+      box-shadow: 
+        0 -10px 40px rgba(0, 0, 0, 0.1),
+        0 20px 60px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      border: 2px solid rgba(212, 175, 55, 0.2);
+      border-bottom: none;
+      position: relative;
+      z-index: 10;
+      animation: mainSlideUp 1.5s ease-out 0.8s both;
+    }
+
+    .memorial-info {
+      text-align: center;
+      margin-bottom: 3rem;
+      animation: infoFadeIn 1.5s ease-out 1.2s both;
+    }
+
+    .name {
+      font-size: 2.8rem;
+      font-weight: 400;
+      color: var(--primary-color);
+      margin-bottom: 1.5rem;
+      letter-spacing: 2px;
+      animation: nameShimmer 4s ease-in-out infinite;
+      position: relative;
+    }
+
+    .name::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold-accent), transparent);
+      animation: underlineGlow 3s ease-in-out infinite alternate;
+    }
+
+    .dates-container {
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+
+    .date-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      padding: 1rem 1.5rem;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(230, 243, 255, 0.3));
+      border-radius: 25px;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      transition: all 0.3s ease;
+      animation: dateItemFloat 3s ease-in-out infinite alternate;
+    }
+
+    .date-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2);
+    }
+
+    .date-item:nth-child(2) {
+      animation-delay: 1.5s;
+    }
+
+    .icon {
+      width: 28px;
+      height: 28px;
+      opacity: 0.8;
+      filter: drop-shadow(0 2px 4px rgba(212, 175, 55, 0.3));
+      color: var(--gold-accent);
+      animation: iconPulse 2s ease-in-out infinite alternate;
+    }
+
+    /* Enhanced quote */
+    .quote {
+      background: linear-gradient(135deg, 
+        rgba(230, 243, 255, 0.6) 0%, 
+        rgba(245, 241, 235, 0.4) 50%,
+        rgba(247, 250, 252, 0.8) 100%);
+      padding: 3rem 2.5rem;
+      border-radius: 20px;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      text-align: center;
+      margin: 3rem auto;
+      max-width: 800px;
+      border-left: 6px solid var(--gold-accent);
+      border-right: 6px solid var(--gold-accent);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      position: relative;
+      animation: quoteFadeIn 1.5s ease-out 1.5s both;
+    }
+
+    .quote::before {
+      content: '"';
+      font-size: 5rem;
+      position: absolute;
+      top: -20px;
+      left: 30px;
+      color: var(--gold-accent);
+      opacity: 0.4;
+      font-family: Georgia, serif;
+      animation: quotePulse 4s ease-in-out infinite;
+    }
+
+    .quote::after {
+      content: '"';
+      font-size: 5rem;
+      position: absolute;
+      bottom: -40px;
+      right: 30px;
+      color: var(--gold-accent);
+      opacity: 0.4;
+      font-family: Georgia, serif;
+      animation: quotePulse 4s ease-in-out infinite reverse;
+    }
+
+    /* Enhanced tabs */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin: 4rem 0;
+      border-bottom: 3px solid var(--gold-accent);
+      animation: tabsSlideIn 1.5s ease-out 1.8s both;
+    }
+
+    .tab {
+      padding: 1.2rem 2.5rem;
+      margin: 0 0.8rem;
+      background: transparent;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.4s ease;
+      color: var(--text-secondary);
+      border-radius: 15px 15px 0 0;
+      font-family: inherit;
+      font-weight: 500;
+    }
+
+    .tab::after {
+      content: "";
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold-accent), #f4e097);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+      border-radius: 2px;
+    }
+
+    .tab:hover {
+      color: var(--gold-accent);
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(230, 243, 255, 0.2));
+      transform: translateY(-3px);
+    }
+
+    .tab.active {
+      color: var(--gold-accent);
+      font-weight: 600;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(230, 243, 255, 0.3));
+      animation: activeTabGlow 2s ease-in-out infinite alternate;
+    }
+
+    .tab.active::after {
+      transform: scaleX(1);
+    }
+
+    /* Enhanced content sections */
+    .content {
+      padding: 3rem 4rem;
+      margin-top: 2rem;
+      opacity: 1;
+      transition: all 0.6s ease;
+      transform: translateY(0);
+      animation: contentFadeIn 0.8s ease-out;
+    }
+
+    .content.hidden {
+      display: none;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .content p {
+      font-size: 1.15rem;
+      margin-bottom: 2rem;
+      text-align: justify;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      animation: paragraphSlideIn 1s ease-out forwards;
+      opacity: 0;
+    }
+
+    .content p:nth-child(1) { animation-delay: 0.2s; }
+    .content p:nth-child(2) { animation-delay: 0.4s; }
+    .content p:nth-child(3) { animation-delay: 0.6s; }
+    .content p:nth-child(4) { animation-delay: 0.8s; }
+
+    .content p:last-child {
+      text-align: center;
+      font-style: italic;
+      font-weight: 600;
+      color: var(--gold-accent);
+      margin-top: 3rem;
+      font-size: 1.3rem;
+      animation: finalMessageGlow 3s ease-in-out infinite alternate;
+    }
+
+    /* Enhanced gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      transition: all 0.4s ease;
+      aspect-ratio: 4/3;
+      animation: galleryItemEntry 1s ease-out forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .gallery-item:nth-child(1) { animation-delay: 0.2s; }
+    .gallery-item:nth-child(2) { animation-delay: 0.4s; }
+    .gallery-item:nth-child(3) { animation-delay: 0.6s; }
+    .gallery-item:nth-child(4) { animation-delay: 0.8s; }
+    .gallery-item:nth-child(5) { animation-delay: 1s; }
+    .gallery-item:nth-child(6) { animation-delay: 1.2s; }
+
+    .gallery-item:hover {
+      transform: translateY(-10px) rotate(1deg);
+      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+    /* Enhanced audio player */
+    .audio-player {
+      text-align: center;
+      padding: 3rem;
+      background: linear-gradient(135deg, 
+        rgba(230, 243, 255, 0.7) 0%, 
+        rgba(245, 241, 235, 0.5) 100%);
+      border-radius: 25px;
+      margin-top: 3rem;
+      border: 2px solid rgba(212, 175, 55, 0.3);
+      animation: audioPlayerPulse 4s ease-in-out infinite alternate;
+    }
+
+    .audio-player h3 {
+      margin-bottom: 2rem;
+      color: var(--primary-color);
+      font-size: 1.8rem;
+      animation: audioTitleShimmer 3s ease-in-out infinite alternate;
+    }
+
+    .audio-player audio {
+      width: 100%;
+      max-width: 450px;
+      margin-bottom: 1.5rem;
+      border-radius: 30px;
+      box-shadow: 0 5px 20px rgba(212, 175, 55, 0.2);
+    }
+
+    .audio-player p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      font-style: italic;
+    }
+
+    /* Enhanced share button */
+    .share-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-top: 4rem;
+      padding: 1.5rem 3rem;
+      background: linear-gradient(135deg, var(--gold-accent) 0%, #f4e097 100%);
+      color: var(--text-primary);
+      border: none;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.2rem;
+      transition: all 0.4s ease;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+      animation: shareButtonGlow 3s ease-in-out infinite alternate;
+    }
+
+    .share-button:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 15px 35px rgba(212, 175, 55, 0.5);
+    }
+
+    .share-button:active {
+      transform: translateY(-2px) scale(1.02);
+    }
+
+    /* Enhanced animations */
+    @keyframes bodyFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10%, 90% { opacity: 0.6; }
+      50% { transform: translateY(-10vh) rotate(180deg); opacity: 1; }
+    }
+
+    @keyframes headerSlideDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes titleGlow {
+      0% {
+        text-shadow: 2px 2px 8px rgba(212, 175, 55, 0.3);
+      }
+      100% {
+        text-shadow: 2px 2px 20px rgba(212, 175, 55, 0.6);
+      }
+    }
+
+    @keyframes subtitlePulse {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 1; }
+    }
+
+    @keyframes portraitEntry {
+      0% {
+        opacity: 0;
+        transform: translateY(-100px) scale(0.5);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes portraitGlow {
+      0% {
+        box-shadow: 
+          0 0 0 4px var(--gold-accent),
+          0 0 30px var(--glow-color),
+          0 20px 40px rgba(0, 0, 0, 0.2);
+      }
+      100% {
+        box-shadow: 
+          0 0 0 6px var(--gold-accent),
+          0 0 45px var(--glow-color),
+          0 25px 50px rgba(0, 0, 0, 0.25);
+      }
+    }
+
+    @keyframes mainSlideUp {
+      0% {
+        opacity: 0;
+        transform: translateY(100px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes infoFadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes nameShimmer {
+      0%, 100% { 
+        color: var(--primary-color); 
+        text-shadow: none;
+      }
+      50% { 
+        color: var(--gold-accent); 
+        text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+      }
+    }
+
+    @keyframes underlineGlow {
+      0% {
+        width: 50px;
+        opacity: 0.5;
+      }
+      100% {
+        width: 120px;
+        opacity: 1;
+      }
+    }
+
+    @keyframes dateItemFloat {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-5px); }
+    }
+
+    @keyframes iconPulse {
+      0% { 
+        transform: scale(1); 
+        opacity: 0.8; 
+      }
+      100% { 
+        transform: scale(1.1); 
+        opacity: 1; 
+      }
+    }
+
+    @keyframes quoteFadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes quotePulse {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.05); }
+    }
+
+    @keyframes tabsSlideIn {
+      0% {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes activeTabGlow {
+      0% {
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(230, 243, 255, 0.3));
+      }
+      100% {
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(230, 243, 255, 0.4));
+      }
+    }
+
+    @keyframes contentFadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes paragraphSlideIn {
+      0% {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes finalMessageGlow {
+      0% {
+        color: var(--gold-accent);
+        text-shadow: none;
+      }
+      100% {
+        color: var(--gold-accent);
+        text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+      }
+    }
+
+    @keyframes galleryItemEntry {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes audioPlayerPulse {
+      0% {
+        border-color: rgba(212, 175, 55, 0.3);
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+      }
+      100% {
+        border-color: rgba(212, 175, 55, 0.5);
+        box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+      }
+    }
+
+    @keyframes audioTitleShimmer {
+      0% { color: var(--primary-color); }
+      100% { color: var(--gold-accent); }
+    }
+
+    @keyframes shareButtonGlow {
+      0% {
+        box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        transform: translateY(0);
+      }
+      100% {
+        box-shadow: 0 12px 35px rgba(212, 175, 55, 0.6);
+        transform: translateY(-2px);
+      }
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .memorial-title {
+        font-size: 2.5rem;
+      }
+      
+      .name {
+        font-size: 2.2rem;
+      }
+      
+      .dates-container {
+        gap: 2rem;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .tabs {
+        flex-wrap: wrap;
+        gap: 0.8rem;
+      }
+      
+      .tab {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+      }
+      
+      .main {
+        padding: 100px 1rem 2rem;
+        border-radius: 20px 20px 0 0;
+      }
+      
+      .content {
+        padding: 2rem 1.5rem;
+      }
+      
+      .quote {
+        padding: 2rem 1.5rem;
+        font-size: 1.1rem;
+        margin: 2rem 1rem;
+      }
+      
+      .gallery {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .portrait {
+        width: 140px;
+        height: 140px;
+      }
+      
+      .memorial-title {
+        font-size: 2rem;
+      }
+      
+      .name {
+        font-size: 1.8rem;
+      }
+    }
+
+    /* Print styles */
+    @media print {
+      .header {
+        height: 200px;
+      }
+      
+      .tabs, .share-button, .particles {
+        display: none;
+      }
+      
+      .content.hidden {
+        display: block;
+        opacity: 1;
+      }
+      
+      * {
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating particles -->
+  <div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+
+  <header class="header">
+    <div class="header-content">
+      <h1 class="memorial-title">En Memoria</h1>
+      <p class="memorial-subtitle">Con amor eterno recordamos 🕊️💛</p>
+    </div>
+  </header>
+  
+  <!-- Foto flotante entre header y main -->
+  <div class="portrait-container">
+    <img src="brayanperfil.jpg"
+         alt="Brayan Tarazona Espinoza"
+         class="portrait">
+  </div>
+  
+  <main class="main">
+    <div class="memorial-info">
+      <h2 class="name">Brayan Tarazona Espinoza</h2>
+      <div class="dates-container">
+        <div class="date-item">
+          <svg class="icon" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          <span>15 de Mayo de 2005</span>
+        </div>
+        <div class="date-item">
+          <svg class="icon" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+          <span>16 de Setiembre de 2025</span>
+        </div>
+      </div>
+    </div>
+
+    <blockquote class="quote">
+      Para nuestro amado Brayan: Te extrañamos en la tierra, pero nos reconforta saber que ahora eres el ángel que cuida nuestro camino. Tu recuerdo es la luz que nos da paz, hasta que volvamos a encontrarnos.
+    </blockquote>
+
+    <nav class="tabs" role="tablist">
+      <button class="tab active" onclick="showTab('historia')" role="tab" aria-selected="true">Historia</button>
+      <button class="tab" onclick="showTab('memorias')" role="tab">Memorias</button>
+      <button class="tab" onclick="showTab('audio')" role="tab">Audio</button>
+    </nav>
+
+    <section class="content" id="historia" role="tabpanel">
+      <p>
+        En la memoria de quienes lo aman, Brayan Tarazona Espinoza vive como un alma tierna y llena de alegría. Su risa resonaba con la pureza de la inocencia, contagiando felicidad a todos a su alrededor. Con su mirada bondadosa, conquistaba corazones y convertía los momentos simples en recuerdos inolvidables.
+      </p>
+      <p>
+        Brayan tenía un don especial para encontrar la belleza en cada día. Le encantaba disfrutar de la música, coleccionar momentos felices y compartir sus sueños con sus seres queridos. Su presencia era sinónimo de paz y ternura.
+      </p>
+      <p>
+        Su recuerdo perdura en el corazón de todos los que lo conocieron, como un faro de luz y amor, un ejemplo de dulzura y alegría incondicional.
+      </p>
+      <p>
+        Con amor eterno, su padre y hermanas.
+      </p>
+    </section>
+
+    <section class="content hidden" id="memorias" role="tabpanel">
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="foto1.jpg" alt="Brayan Tarazona en momentos familiares" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="foto2.jpg" alt="Brayan Tarazona con la familia" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="foto3.jpg" alt="Brayan Tarazona sonriendo" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="foto4.jpg" alt="Brayan Tarazona en celebración" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="foto5.jpg" alt="Brayan Tarazona en la iglesia" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="foto6.jpg" alt="Brayan Tarazona con amigos" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <section class="content hidden" id="audio" role="tabpanel">
+      <div class="audio-player">
+        <h3>Mensaje de Brayan Tarazona</h3>
+        <audio controls preload="metadata" aria-label="Audio mensaje de Brayan Tarazona">
+          <source src="brayan_audio.mp3" type="audio/mpeg">
+          <p>Tu navegador no soporta el elemento de audio. <a href="brayan_audio.mp3">Descargar audio</a></p>
+        </audio>
+        <p>Duración: 00:26</p>
+      </div>
+    </section>
+
+    <div style="text-align: center;">
+      <button class="share-button" onclick="shareMemorial()" aria-label="Compartir memorial">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.50-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
+        </svg>
+        Compartir
+      </button>
+    </div>
+  </main>
+
+  <script>
+    function showTab(tabId) {
+      // Remove active class from all tabs
+      const tabs = document.querySelectorAll('.tab');
+      tabs.forEach(tab => {
+        tab.classList.remove('active');
+        tab.setAttribute('aria-selected', 'false');
+      });
+
+      // Hide all content sections
+      const contents = document.querySelectorAll('.content');
+      contents.forEach(content => {
+        content.classList.add('hidden');
+      });
+
+      // Show selected tab and content
+      const activeTab = document.querySelector(`[onclick="showTab('${tabId}')"]`);
+      const activeContent = document.getElementById(tabId);
+      
+      activeTab.classList.add('active');
+      activeTab.setAttribute('aria-selected', 'true');
+      activeContent.classList.remove('hidden');
+
+      // Trigger content animations when tab changes
+      if (tabId === 'memorias') {
+        const galleryItems = activeContent.querySelectorAll('.gallery-item');
+        galleryItems.forEach((item, index) => {
+          item.style.animationDelay = `${index * 0.2}s`;
+          item.style.animation = 'galleryItemEntry 1s ease-out forwards';
+        });
+      }
+
+      // Add smooth transition
+      setTimeout(() => {
+        activeContent.style.opacity = 1;
+        // Re-trigger paragraph animations
+        const paragraphs = activeContent.querySelectorAll('p');
+        paragraphs.forEach((p, index) => {
+          p.style.animationDelay = `${index * 0.2}s`;
+          p.style.animation = 'paragraphSlideIn 1s ease-out forwards';
+        });
+      }, 50);
+
+      // Smooth scroll to content
+      smoothScrollToContent();
+    }
+
+    function shareMemorial() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'En memoria de Brayan Tarazona Espinoza',
+          text: 'Recordando con amor a Brayan en su día especial',
+          url: window.location.href
+        }).catch(err => console.log('Error sharing:', err));
+      } else {
+        // Fallback for browsers that don't support Web Share API
+        const url = window.location.href;
+        navigator.clipboard.writeText(url).then(() => {
+          // Show beautiful notification
+          showNotification('Enlace copiado al portapapeles ✨');
+        }).catch(err => {
+          console.log('Error copying to clipboard:', err);
+          // Fallback: show URL in prompt
+          prompt('Copia este enlace para compartir:', url);
+        });
+      }
+    }
+
+    function showNotification(message) {
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, var(--gold-accent), #f4e097);
+        color: var(--text-primary);
+        padding: 1rem 2rem;
+        border-radius: 25px;
+        box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        z-index: 1000;
+        font-family: Georgia, serif;
+        font-weight: 600;
+        transform: translateX(400px);
+        transition: transform 0.4s ease;
+      `;
+      notification.textContent = message;
+      document.body.appendChild(notification);
+
+      // Animate in
+      setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+      }, 100);
+
+      // Animate out and remove
+      setTimeout(() => {
+        notification.style.transform = 'translateX(400px)';
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 400);
+      }, 3000);
+    }
+
+    // Add keyboard navigation for tabs
+    document.addEventListener('keydown', (e) => {
+      if (e.target.classList.contains('tab')) {
+        const tabs = [...document.querySelectorAll('.tab')];
+        const currentIndex = tabs.indexOf(e.target);
+        
+        if (e.key === 'ArrowLeft' && currentIndex > 0) {
+          tabs[currentIndex - 1].focus();
+          tabs[currentIndex - 1].click();
+        } else if (e.key === 'ArrowRight' && currentIndex < tabs.length - 1) {
+          tabs[currentIndex + 1].focus();
+          tabs[currentIndex + 1].click();
+        }
+      }
+    });
+
+    // Add smooth scroll to content when tab changes
+    function smoothScrollToContent() {
+      const main = document.querySelector('.main');
+      const tabsPosition = document.querySelector('.tabs').offsetTop;
+      window.scrollTo({
+        top: tabsPosition - 100,
+        behavior: 'smooth'
+      });
+    }
+
+    // Enhanced initialization with sequential animations
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize body fade in
+      document.body.style.opacity = '0';
+      setTimeout(() => {
+        document.body.style.transition = 'opacity 1.5s ease';
+        document.body.style.opacity = '1';
+      }, 100);
+
+      // Add scroll animations for elements that come into view
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.animation = 'fadeInUp 1s ease-out forwards';
+          }
+        });
+      }, observerOptions);
+
+      // Observe elements for scroll animations - but not gallery items since they have tab animations
+      document.querySelectorAll('.date-item, .audio-player').forEach(el => {
+        observer.observe(el);
+      });
+
+      // Initialize gallery items to be visible when memorias tab loads
+      const memoriasTab = document.querySelector('[onclick="showTab(\'memorias\')"]');
+      if (memoriasTab) {
+        memoriasTab.addEventListener('click', () => {
+          setTimeout(() => {
+            const galleryItems = document.querySelectorAll('#memorias .gallery-item');
+            galleryItems.forEach((item, index) => {
+              item.classList.add('animate-entry');
+            });
+          }, 100);
+        });
+      }
+
+      // Handle orientation changes
+      window.addEventListener('orientationchange', () => {
+        setTimeout(() => {
+          // Recalculate positions after orientation change
+          window.scrollTo(0, 0);
+        }, 100);
+      });
+
+      // Optimize for touch devices
+      if ('ontouchstart' in window) {
+        document.body.classList.add('touch-device');
+        // Reduce animation duration on touch devices for better performance
+        document.documentElement.style.setProperty('--animation-speed', '0.8s');
+      }
+    });
+
+    // Add special birthday message animation
+    function showBirthdayMessage() {
+      const birthdayMessage = document.createElement('div');
+      birthdayMessage.innerHTML = `
+        <div style="
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: linear-gradient(135deg, rgba(212, 175, 55, 0.95), rgba(244, 224, 151, 0.95));
+          padding: 3rem;
+          border-radius: 25px;
+          text-align: center;
+          z-index: 1000;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+          border: 3px solid var(--gold-accent);
+          max-width: 90%;
+          animation: birthdayMessageEntry 1s ease-out;
+        ">
+          <h2 style="color: var(--text-primary); margin-bottom: 1rem; font-size: 2rem;">
+            🎂✨ Feliz Cumpleaños en el Cielo ✨🎂
+          </h2>
+          <p style="color: var(--text-secondary); font-size: 1.2rem; line-height: 1.6;">
+            Hoy celebramos tu vida y el amor eterno que nos dejaste.<br>
+            Aunque no estés físicamente, tu luz sigue brillando en nuestros corazones.
+          </p>
+          <button onclick="this.parentElement.parentElement.remove()" style="
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            background: var(--text-primary);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+          " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            Con amor 💛
+          </button>
+        </div>
+        <div style="
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);
+          z-index: 999;
+        " onclick="this.parentElement.remove()"></div>
+      `;
+
+      // Add birthday animation keyframes
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes birthdayMessageEntry {
+          0% {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.5) rotate(-10deg);
+          }
+          100% {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1) rotate(0deg);
+          }
+        }
+      `;
+      document.head.appendChild(style);
+      document.body.appendChild(birthdayMessage);
+    }
+
+    // Show birthday message after page loads (optional - can be triggered manually)
+    setTimeout(showBirthdayMessage, 3000);
+  </script>
+
+</body>
+</html>

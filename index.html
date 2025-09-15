@@ -482,6 +482,69 @@
       transform: translateY(-2px) scale(1.02);
     }
 
+    /* MODAL DE CUMPLEAÑOS RESPONSIVE */
+    .birthday-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      animation: modalOverlayFadeIn 0.5s ease-out;
+    }
+
+    .birthday-message {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.95), rgba(244, 224, 151, 0.95));
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      border: 3px solid var(--gold-accent);
+      max-width: 500px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+      animation: birthdayMessageEntry 0.8s ease-out;
+      position: relative;
+    }
+
+    .birthday-message h2 {
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+      line-height: 1.4;
+    }
+
+    .birthday-message p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .birthday-close-btn {
+      padding: 0.8rem 2rem;
+      background: var(--text-primary);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .birthday-close-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
     /* Enhanced animations */
     @keyframes bodyFadeIn {
       from { opacity: 0; }
@@ -712,6 +775,23 @@
       }
     }
 
+    /* Animaciones del modal de cumpleaños */
+    @keyframes modalOverlayFadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes birthdayMessageEntry {
+      0% {
+        opacity: 0;
+        transform: scale(0.7) translateY(-50px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
     /* Responsive design */
     @media (max-width: 768px) {
       .memorial-title {
@@ -757,6 +837,28 @@
         grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
         gap: 1.5rem;
       }
+
+      /* Modal responsive en móviles */
+      .birthday-message {
+        padding: 1.5rem;
+        margin: 0.5rem;
+        max-height: 85vh;
+      }
+
+      .birthday-message h2 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+      }
+
+      .birthday-message p {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .birthday-close-btn {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.9rem;
+      }
     }
 
     @media (max-width: 480px) {
@@ -772,6 +874,20 @@
       .name {
         font-size: 1.8rem;
       }
+
+      /* Modal extra pequeño para móviles muy pequeños */
+      .birthday-message {
+        padding: 1.2rem;
+        margin: 0.3rem;
+      }
+
+      .birthday-message h2 {
+        font-size: 1.1rem;
+      }
+
+      .birthday-message p {
+        font-size: 0.9rem;
+      }
     }
 
     /* Print styles */
@@ -780,7 +896,7 @@
         height: 200px;
       }
       
-      .tabs, .share-button, .particles {
+      .tabs, .share-button, .particles, .birthday-modal {
         display: none;
       }
       
@@ -828,7 +944,7 @@
           <svg class="icon" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
           </svg>
-          <span>15 de Mayo de 2005</span>
+          <span>14 de Mayo de 2005</span>
         </div>
         <div class="date-item">
           <svg class="icon" fill="currentColor" viewBox="0 0 24 24">
@@ -863,6 +979,21 @@
         Con amor eterno, su padre y hermanas.
       </p>
     </section>
+
+	<section class="content" id="Invitacion" role="tabpanel">
+      <p>
+        La familia tiene el honor de invitar a usted y a los suyos a acompañarnos en la ceremonia de homenaje en memoria de nuestro ser querido..
+      </p>
+      <p>
+		📅 Fecha: Martes, 16 de septiembre del 2025
+		📍 Lugar: Cementerio Municipal de Chancay
+		🕊️ Ubicación: Cuartel María Magdalena, Fila D, Número 06
+      </p>
+      <p>
+        Con su presencia rendiremos juntos un sentido tributo, elevando oraciones y recuerdos llenos de amor.
+      </p>
+    </section>
+
 
     <section class="content hidden" id="memorias" role="tabpanel">
       <div class="gallery">
@@ -1036,6 +1167,43 @@
       });
     }
 
+    // NUEVA FUNCIÓN PARA EL MODAL DE CUMPLEAÑOS RESPONSIVE
+    function showBirthdayMessage() {
+      const birthdayModal = document.createElement('div');
+      birthdayModal.className = 'birthday-modal';
+      birthdayModal.innerHTML = `
+        <div class="birthday-message">
+          <h2>🎂✨ Un año de tu partida al Cielo ✨🎂</h2>
+          <p>
+            Hoy Conmemoramos tu vida y el amor eterno que nos dejaste.<br>
+            Aunque no estés físicamente, tu luz sigue brillando en nuestros corazones.
+          </p>
+          <button class="birthday-close-btn" onclick="closeBirthdayMessage()">
+            Con amor 💛
+          </button>
+        </div>
+      `;
+
+      // Cerrar modal al hacer clic en el fondo
+      birthdayModal.addEventListener('click', (e) => {
+        if (e.target === birthdayModal) {
+          closeBirthdayMessage();
+        }
+      });
+
+      document.body.appendChild(birthdayModal);
+    }
+
+    function closeBirthdayMessage() {
+      const modal = document.querySelector('.birthday-modal');
+      if (modal) {
+        modal.style.animation = 'modalOverlayFadeIn 0.3s ease-out reverse';
+        setTimeout(() => {
+          modal.remove();
+        }, 300);
+      }
+    }
+
     // Enhanced initialization with sequential animations
     document.addEventListener('DOMContentLoaded', () => {
       // Initialize body fade in
@@ -1091,78 +1259,16 @@
         // Reduce animation duration on touch devices for better performance
         document.documentElement.style.setProperty('--animation-speed', '0.8s');
       }
+
+      // Cerrar modal con la tecla Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeBirthdayMessage();
+        }
+      });
     });
 
-    // Add special birthday message animation
-    function showBirthdayMessage() {
-      const birthdayMessage = document.createElement('div');
-      birthdayMessage.innerHTML = `
-        <div style="
-          position: fixed;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          background: linear-gradient(135deg, rgba(212, 175, 55, 0.95), rgba(244, 224, 151, 0.95));
-          padding: 3rem;
-          border-radius: 25px;
-          text-align: center;
-          z-index: 1000;
-          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-          border: 3px solid var(--gold-accent);
-          max-width: 90%;
-          animation: birthdayMessageEntry 1s ease-out;
-        ">
-          <h2 style="color: var(--text-primary); margin-bottom: 1rem; font-size: 2rem;">
-            🎂✨ Un año de tu partida al Cielo ✨🎂
-          </h2>
-          <p style="color: var(--text-secondary); font-size: 1.2rem; line-height: 1.6;">
-            Hoy celebramos tu vida y el amor eterno que nos dejaste.<br>
-            Aunque no estés físicamente, tu luz sigue brillando en nuestros corazones.
-          </p>
-          <button onclick="this.parentElement.parentElement.remove()" style="
-            margin-top: 2rem;
-            padding: 1rem 2rem;
-            background: var(--text-primary);
-            color: white;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-          " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-            Con amor 💛
-          </button>
-        </div>
-        <div style="
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(0, 0, 0, 0.5);
-          z-index: 999;
-        " onclick="this.parentElement.remove()"></div>
-      `;
-
-      // Add birthday animation keyframes
-      const style = document.createElement('style');
-      style.textContent = `
-        @keyframes birthdayMessageEntry {
-          0% {
-            opacity: 0;
-            transform: translate(-50%, -50%) scale(0.5) rotate(-10deg);
-          }
-          100% {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1) rotate(0deg);
-          }
-        }
-      `;
-      document.head.appendChild(style);
-      document.body.appendChild(birthdayMessage);
-    }
-
-    // Show birthday message after page loads (optional - can be triggered manually)
+    // Show birthday message after page loads (opcional - puede activarse manualmente)
     setTimeout(showBirthdayMessage, 3000);
   </script>
 
